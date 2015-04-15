@@ -96,13 +96,6 @@ CREATE TABLE `favorite_type` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Favorite types';
 
-INSERT INTO `favorite_type` (`id`, `name`) VALUES
-(1,	'Пользователь'),
-(2,	'Подсайт'),
-(3,	'Пост'),
-(4,	'Комментарий'),
-(5,	'Инбокс'),
-(6,	'Выборы');
 
 DROP TABLE IF EXISTS `ignore_post`;
 CREATE TABLE `ignore_post` (
@@ -390,3 +383,32 @@ CREATE TABLE `user_vote` (
 
 
 -- 2015-04-14 05:30:41
+
+DROP TABLE IF EXISTS `agreement`;
+CREATE TABLE `agreement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ИД',
+  `title` varchar(255) NOT NULL COMMENT 'Заголовок',
+  `text` text NOT NULL COMMENT 'Текст',
+  `create_date` datetime NOT NULL COMMENT 'Дата создания',
+  `start_date` datetime NOT NULL COMMENT 'Дата начала',
+  `end_date` datetime NOT NULL COMMENT 'Дата завершения',
+  `is_active` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Флаг активности',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Пользовательские соглашения';
+
+
+DROP TABLE IF EXISTS `user_agreement`;
+CREATE TABLE `user_agreement` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ИД',
+  `user_id` int(11) NOT NULL COMMENT 'Пользователь',
+  `agreement_id` int(11) NOT NULL COMMENT 'Соглашение',
+  `create_date` datetime NOT NULL COMMENT 'Дата создания',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `agreement_id` (`agreement_id`),
+  CONSTRAINT `user_agreement_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_agreement_ibfk_2` FOREIGN KEY (`agreement_id`) REFERENCES `agreement` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Пользователи - соглашения';
+
+
+-- 2015-04-15 06:02:30
