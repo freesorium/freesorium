@@ -4,6 +4,12 @@
     "keywords": ["community", "blog"],
     "homepage": "https://github.com/freesorium",
     "type": "project",
+    "authors": [
+      {
+        "name": "Eugene Kozlov",
+        "email": "eudjin@gmail.com"
+      }
+    ],
     "license": "Apache 2.0",
     "support": {
         "issues": "https://github.com/freesorium/freesorium/issues?state=open",
